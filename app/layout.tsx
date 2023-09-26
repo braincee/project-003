@@ -9,14 +9,25 @@ export const metadata = {
 
 export default function RootLayout({
   children,
+  message,
 }: {
   children: React.ReactNode
+  message: React.ReactNode
 }) {
   return (
     <html lang='en'>
-      <body>
+      <body style={{ minHeight: '100vh' }}>
         <ThemeRegistry>
-          <Suspense fallback={<Loading />}>{children}</Suspense>
+          <Suspense
+            fallback={
+              <>
+                <Loading /> {message}{' '}
+              </>
+            }
+          >
+            {message}
+            {children}
+          </Suspense>
         </ThemeRegistry>
       </body>
     </html>
