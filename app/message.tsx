@@ -26,13 +26,12 @@ const Message = () => {
     setRandomIndex(Math.floor(Math.random() * messages.length))
     setMessage(messages[randomIndex])
   }, 2000)
-  console.log(randomIndex, message)
 
   return (
-    <Box sx={{ width: '100%', display: 'flex', flexWrap: 'wrap' }}>
+    <Box>
       <AnimatePresence>
         <motion.p
-          animate={{ x: [50, 100, 50], opacity: 1, scale: 1 }}
+          animate={{ x: [0, 100, 0], opacity: 1, scale: 1 }}
           transition={{
             duration: 2,
           }}
