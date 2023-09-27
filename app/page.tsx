@@ -34,8 +34,25 @@ export default function Home() {
 
   return (
     <main>
-      <Box sx={{ pt: 10 }}>
-        <Card>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh',
+          '@media (max-width: 767px)': {
+            px: 5,
+          },
+        }}
+      >
+        <Card
+          sx={{
+            width: '100%',
+            '@media (min-width: 768px)': {
+              width: '400px',
+            },
+          }}
+        >
           <motion.div whileHover={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)' }}>
             <Input
               placeholder='Enter Wallet Address'
