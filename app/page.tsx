@@ -39,7 +39,7 @@ export default function Home() {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          height: '100vh',
+          height: '60vh',
           '@media (max-width: 767px)': {
             px: 5,
           },
