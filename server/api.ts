@@ -93,7 +93,7 @@ export async function gas(address: string) {
     }, // copy data from a response
     topMinerPaid: '0x95222290dd7278aa3ddd389cc1e1d165cc4bafe5',
     topMinerTxs: '0x95222290dd7278aa3ddd389cc1e1d165cc4bafe5',
-    gasBurned: '0.0551',
+    gasUsed: '0.0551',
     uniqueMiners: [
       '0xdafea492d9c6733ae3d56b7ed1adb60692c98bc5',
       '0x95222290dd7278aa3ddd389cc1e1d165cc4bafe5',
