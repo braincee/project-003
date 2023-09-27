@@ -1,20 +1,51 @@
 'use client'
+
+import { motion } from 'framer-motion'
+import { Input, Box, Card } from '@mui/joy'
 import { gas } from '@/server/api'
-import { Button } from '@mui/joy'
+import { useState } from 'react'
 
 export default function Home() {
+  const [inputValue, setInputValue] = useState<string>('')
+  const [output, setOutput] = useState<any>(null)
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value)
+  }
+
+  const handleSubmit = async () => {
+    try {
+      const result = await gas(inputValue)
+      setOutput(result)
+      console.log(result)
+      setInputValue('')
+    } catch (error) {
+      console.error('Error fetching data:', error)
+    }
+  }
+
+  const handleInputKeyPress = async (
+    event: React.KeyboardEvent<HTMLInputElement>
+  ) => {
+    if (event.key === 'Enter') {
+      await handleSubmit()
+    }
+  }
+
   return (
     <main>
-      Hello
-      <Button
-        onClick={async () => {
-          const output = await gas('0xe3e7a2bf703cbbb3d250b61dfd0804e5492dbf61')
-
-          console.log(output)
-        }}
-      >
-        Gas
-      </Button>
+      <Box sx={{ pt: 10 }}>
+        <Card>
+          <motion.div whileHover={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)' }}>
+            <Input
+              placeholder='Enter Wallet Address'
+              value={inputValue}
+              onChange={handleInputChange}
+              onKeyDown={handleInputKeyPress}
+            />
+          </motion.div>
+        </Card>
+      </Box>
     </main>
   )
 }
