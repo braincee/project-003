@@ -4,11 +4,11 @@ import { motion } from 'framer-motion'
 import { Input, Box, Card, Typography, Chip, Grid } from '@mui/joy'
 import { gas } from '@/server/api'
 import { useState } from 'react'
-import truncateEthAddress from 'truncate-eth-address'
 
 export default function Home() {
   const [inputValue, setInputValue] = useState<string>('')
   const [output, setOutput] = useState<any>(null)
+  const [status, setStatus] = useState<string>('idle')
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value)
@@ -29,173 +29,43 @@ export default function Home() {
     event: React.KeyboardEvent<HTMLInputElement>
   ) => {
     if (event.key === 'Enter') {
+      setStatus('loading')
       await handleSubmit()
+      setStatus('success')
     }
   }
 
   return (
     <main>
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-      }}
-    >
-      <Card
+      <Box
         sx={{
           display: 'flex',
           justifyContent: 'center',
-          '@media (min-width: 768px)': {
-            width: '400px',
+          alignItems: 'center',
+          height: '60vh',
+          '@media (max-width: 767px)': {
+            px: 5,
           },
-          backgroundColor: '#457370',
-          marginBottom: '20px',
-          padding: '10px',
-          borderRadius: '8px',
         }}
       >
-        <motion.div whileHover={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)' }}>
-          <Input
-            placeholder='Enter Wallet Address'
-            value={inputValue}
-            onChange={handleInputChange}
-            onKeyDown={handleInputKeyPress}
-          />
-        </motion.div>
-      </Card>
-      <Grid container spacing={2}>
-        {output && (
-          <>
-            <Grid xs={6} md={4}>
-              <Card
-                sx={{
-                  mt: 2,
-                  p: 2,
-                  textAlign: 'center',
-                  backgroundColor: '#e57373',
-                  width: '100%',
-                  height: '150px',
-                  '@media (max-width: 767px)': {
-                    width: '80%',
-                    margin: '0 auto',
-                  },
-                }}
-              >
-                <Typography level='h6'>Transaction Count: {output.txCount}</Typography>
-              </Card>
-            </Grid>
-            <Grid xs={8} md={4}>
-            <Grid>
-              <Card
-                sx={{
-                  mt: 2,
-                  p: 2,
-                  textAlign: 'center',
-                  backgroundColor: '#e57373',
-                  width: '100%',
-                  height: '60px',
-                  '@media (max-width: 767px)': {
-                    width: '80%',
-                    margin: '0 auto',
-                  },
-                }}
-              >
-                <Typography level='h6'>Gas Used: {output.gasUsed}</Typography>
-              </Card>
-              <Grid>
-              <Card
-                sx={{
-                  mt: 2,
-                  p: 2,
-                  textAlign: 'center',
-                  backgroundColor: '#64b5f6',
-                  width: '100%',
-                  height: '60px',
-                  '@media (max-width: 767px)': {
-                    width: '80%',
-                    margin: '0 auto',
-                  },
-                }}
-              >
-                <Typography level='h6'>
-                  Top Miner: {truncateEthAddress(output.topMinerTxs)}
-                </Typography>
-              </Card>
-            </Grid>
-              </Grid>
-            </Grid>
-            {output.allMinersUnique ? (
-              <>
-                <Grid xs={12} md={4}>
-                  <Card
-                    sx={{
-                      mt: 2,
-                      p: 2,
-                      textAlign: 'center',
-                      backgroundColor: '#ffb74d',
-                      width: '100%',
-                      height: '150px',
-                      '@media (max-width: 767px)': {
-                        width: '80%',
-                        margin: '0 auto',
-                      },
-                    }}
-                  >
-                    <Typography level='h6'>
-                      Top Miner Paid: {truncateEthAddress(output.topMinerPaid)}
-                    </Typography>
-                  </Card>
-                </Grid>
-                <Grid xs={12} md={4}>
-                  <Card
-                    sx={{
-                      mt: 2,
-                      p: 2,
-                      textAlign: 'center',
-                      backgroundColor: '#b2dfdb',
-                      width: '100%',
-                      height: '150px',
-                      '@media (max-width: 767px)': {
-                        width: '80%',
-                        margin: '0 auto',
-                      },
-                    }}
-                  >
-                    <Typography level='h6'>
-                      Top Transaction: {truncateEthAddress(output.topTransaction?.tx_hash)}
-                    </Typography>
-                  </Card>
-                </Grid>
-              </>
-            ) : (
-              <Grid xs={12} md={4}>
-                <Card
-                  sx={{
-                    mt: 2,
-                    p: 2,
-                    textAlign: 'center',
-                    backgroundColor: '#ffb74d',
-                    width: '100%',
-                    height: '150px',
-                    '@media (max-width: 767px)': {
-                      width: '80%',
-                      margin: '0 auto',
-                    },
-                  }}
-                >
-                  <Typography level='h6'>
-                    Top Miner Paid: {truncateEthAddress(output.topMinerPaid)}
-                  </Typography>
-                </Card>
-              </Grid>
-            )}
-          </>
-        )}
-      </Grid>
-    </Box>
-  </main>
+        <Card
+          sx={{
+            width: '100%',
+            '@media (min-width: 768px)': {
+              width: '400px',
+            },
+          }}
+        >
+          <motion.div whileHover={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)' }}>
+            <Input
+              placeholder='Enter Wallet Address'
+              value={inputValue}
+              onChange={handleInputChange}
+              onKeyDown={handleInputKeyPress}
+            />
+          </motion.div>
+        </Card>
+      </Box>
+    </main>
   )
 }
