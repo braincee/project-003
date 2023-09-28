@@ -140,7 +140,7 @@ export async function gas(address: string) {
       '0x1cedc0f3af8f9841b0a1f5c1a4ddc6e1a1629074',
       '0x8ead0e8fec8319fd62c8508c71a90296efd4f042',
     ],
-    allMinersUnique: false,
+    allMinersUnique: true,
   }
 
   // const key = 'cqt_rQmbHvMYPQ6r7gcyMbv36cVMmrPY';
