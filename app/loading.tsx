@@ -16,7 +16,7 @@ export default function Loading() {
         width: '100%',
       }}
     >
-      <Stack sx={{ width: '100%', textAlign: 'center' }}>
+      <Stack sx={{ width: '100%', textAlign: 'center' }} spacing={3}>
         <LinearProgress
           size='lg'
           thickness={30}
