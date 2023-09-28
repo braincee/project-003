@@ -3,11 +3,14 @@
 import { motion } from 'framer-motion'
 import { Input, Box, Card } from '@mui/joy'
 import { gas } from '@/server/api'
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
+import Results from './results'
+import Loading from './loading'
 
 export default function Home() {
   const [inputValue, setInputValue] = useState<string>('')
   const [output, setOutput] = useState<any>(null)
+  const [status, setStatus] = useState<string>('idle')
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value)
@@ -28,7 +31,9 @@ export default function Home() {
     event: React.KeyboardEvent<HTMLInputElement>
   ) => {
     if (event.key === 'Enter') {
+      setStatus('loading')
       await handleSubmit()
+      setStatus('success')
     }
   }
 
@@ -37,31 +42,39 @@ export default function Home() {
       <Box
         sx={{
           display: 'flex',
+          flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          height: '60vh',
-          '@media (max-width: 767px)': {
-            px: 5,
-          },
+          height: '100vh',
         }}
       >
-        <Card
-          sx={{
-            width: '100%',
-            '@media (min-width: 768px)': {
-              width: '400px',
-            },
-          }}
-        >
-          <motion.div whileHover={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)' }}>
-            <Input
-              placeholder='Enter Wallet Address'
-              value={inputValue}
-              onChange={handleInputChange}
-              onKeyDown={handleInputKeyPress}
-            />
-          </motion.div>
-        </Card>
+        {status === 'idle' && (
+          <Card
+            sx={{
+              width: '100%',
+              '@media (min-width: 768px)': {
+                width: '400px',
+              },
+            }}
+          >
+            <motion.div
+              whileHover={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)' }}
+            >
+              <Input
+                placeholder='Enter Wallet Address'
+                value={inputValue}
+                onChange={handleInputChange}
+                onKeyDown={handleInputKeyPress}
+              />
+            </motion.div>
+          </Card>
+        )}
+
+        {status === 'success' && (
+          <Suspense fallback={<Loading />}>
+            <Results output={output} />
+          </Suspense>
+        )}
       </Box>
     </main>
   )

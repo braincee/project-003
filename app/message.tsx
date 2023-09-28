@@ -1,5 +1,5 @@
 import { Box } from '@mui/joy'
-import { AnimatePresence, easeIn, motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { useState } from 'react'
 import { useInterval } from 'usehooks-ts'
 
