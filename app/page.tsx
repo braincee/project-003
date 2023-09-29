@@ -6,13 +6,23 @@ import { gas } from '@/server/api'
 import { Suspense, useState } from 'react'
 import Results from '@/components/results'
 import Loading from './loading'
+import { number } from 'zod'
+
+interface OutputProps {
+  txCount: number
+  topTransaction: {}
+  topMinerPaid: string
+  topMinerTxs: string
+  gasBurned: string
+  uniqueMiners: string[]
+  allMinersUnique: boolean
+}
 
 export default function Home() {
   const [inputValue, setInputValue] = useState<string>('')
-  //! This is a `Record` type, fix it.
-  const [output, setOutput] = useState<any>(null)
-  //! Change status to a `boolean` isFired.
-  const [status, setStatus] = useState<string>('idle')
+  const [output, setOutput] = useState<OutputProps>()
+
+  const [isFired, setIsFired] = useState<boolean>(false)
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value)
@@ -33,9 +43,8 @@ export default function Home() {
     event: React.KeyboardEvent<HTMLInputElement>
   ) => {
     if (event.key === 'Enter') {
-      setStatus('loading')
       await handleSubmit()
-      setStatus('success')
+      setIsFired(true)
     }
   }
 
@@ -55,7 +64,7 @@ export default function Home() {
           },
         }}
       >
-        {status === 'idle' && (
+        {!isFired && (
           <Card
             sx={{
               width: '100%',
@@ -74,15 +83,14 @@ export default function Home() {
                 onChange={handleInputChange}
                 onKeyDown={handleInputKeyPress}
                 sx={{
-                  '@media (max-width: 767px)': {
-              }
+                  '@media (max-width: 767px)': {},
                 }}
               />
             </motion.div>
           </Card>
         )}
 
-        {status === 'success' && (
+        {isFired && (
           <Suspense fallback={<Loading />}>
             <Results output={output} />
           </Suspense>
