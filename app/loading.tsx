@@ -1,7 +1,7 @@
 'use client'
 import { Box, LinearProgress, Stack, Typography } from '@mui/joy'
 
-import Message from './message'
+import Message from '@/components/message'
 
 export default function Loading() {
   return (
@@ -16,7 +16,7 @@ export default function Loading() {
         width: '100%',
       }}
     >
-      <Stack sx={{ width: '100%', textAlign: 'center' }}>
+      <Stack sx={{ width: '100%', textAlign: 'center' }} spacing={3}>
         <LinearProgress
           size='lg'
           thickness={30}

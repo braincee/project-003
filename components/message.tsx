@@ -1,5 +1,5 @@
 import { Box } from '@mui/joy'
-import { AnimatePresence, easeIn, motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { useState } from 'react'
 import { useInterval } from 'usehooks-ts'
 
@@ -22,25 +22,46 @@ const Message = () => {
   )
   const [message, setMessage] = useState(messages[randomIndex])
 
+  const animateFunc = (mess: string) => (
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{
+          duration: 2,
+        }}
+        exit={{ opacity: 0, scale: 0.5 }}
+      >
+        {mess}
+      </motion.div>
+    </AnimatePresence>
+  )
+
+  const [animateMessage, setAnimateMessage] = useState(
+    animateFunc(messages[randomIndex])
+  )
+
   useInterval(() => {
     setRandomIndex(Math.floor(Math.random() * messages.length))
     setMessage(messages[randomIndex])
+    setAnimateMessage(animateFunc(message))
   }, 2000)
 
   return (
     <Box>
-      <AnimatePresence>
+      {animateMessage}
+      {/* <AnimatePresence>
         <motion.p
-          animate={{ x: [0, 100, 0], opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
           transition={{
             duration: 2,
           }}
-          initial={false}
           exit={{ opacity: 0 }}
         >
           {message}
         </motion.p>
-      </AnimatePresence>
+      </AnimatePresence> */}
     </Box>
   )
 }
