@@ -6,11 +6,12 @@ import { gas } from '@/server/api'
 import { Suspense, useState } from 'react'
 import Results from '@/components/results'
 import Loading from './loading'
-import { number } from 'zod'
 
 interface OutputProps {
   txCount: number
-  topTransaction: {}
+  topTransaction: {
+    tx_hash: string
+  }
   topMinerPaid: string
   topMinerTxs: string
   gasBurned: string
