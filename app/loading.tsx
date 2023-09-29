@@ -1,7 +1,7 @@
 'use client'
 import { Box, LinearProgress, Stack, Typography } from '@mui/joy'
 
-import Message from './message'
+import Message from '@/components/message'
 
 export default function Loading() {
   return (

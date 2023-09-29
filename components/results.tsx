@@ -1,10 +1,12 @@
 import { Box, Card, Grid, Typography, Stack } from '@mui/joy'
 import truncateEthAddress from 'truncate-eth-address'
+//! canvas-confetti is the right package to use https://github.com/catdad/canvas-confetti
 import Confetti from 'react-confetti'
 import { useState, useEffect } from 'react';
 
 
 export  default async function Results({ output }: { output: any }) {
+    // await new Promise((resolve) => setTimeout(resolve, 3000))
   const [isConfettiActive, setIsConfettiActive] = useState(false);
 
   useEffect(() => {

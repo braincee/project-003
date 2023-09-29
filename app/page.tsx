@@ -4,12 +4,14 @@ import { motion } from 'framer-motion'
 import { Input, Box, Card } from '@mui/joy'
 import { gas } from '@/server/api'
 import { Suspense, useState } from 'react'
-import Results from './results'
+import Results from '@/components/results'
 import Loading from './loading'
 
 export default function Home() {
   const [inputValue, setInputValue] = useState<string>('')
+  //! This is a `Record` type, fix it.
   const [output, setOutput] = useState<any>(null)
+  //! Change status to a `boolean` isFired.
   const [status, setStatus] = useState<string>('idle')
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,7 +48,7 @@ export default function Home() {
           justifyContent: 'center',
           alignItems: 'center',
           height: '100vh',
-          backgroundColor: '#2B2D42',
+          backgroundColor: '#ACF7C1',
           padding: '0 20px',
           '@media (max-width: 767px)': {
             padding: '0 10px',
