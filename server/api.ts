@@ -93,7 +93,7 @@ export async function gas(address: string) {
     }, // copy data from a response
     topMinerPaid: '0x95222290dd7278aa3ddd389cc1e1d165cc4bafe5',
     topMinerTxs: '0x95222290dd7278aa3ddd389cc1e1d165cc4bafe5',
-    gasUsed: '0.0551',
+    gasBurned: '0.0551',
     uniqueMiners: [
       '0xdafea492d9c6733ae3d56b7ed1adb60692c98bc5',
       '0x95222290dd7278aa3ddd389cc1e1d165cc4bafe5',
@@ -140,7 +140,7 @@ export async function gas(address: string) {
       '0x1cedc0f3af8f9841b0a1f5c1a4ddc6e1a1629074',
       '0x8ead0e8fec8319fd62c8508c71a90296efd4f042',
     ],
-    allMinersUnique: true,
+    allMinersUnique: false,
   }
 
   // const key = 'cqt_rQmbHvMYPQ6r7gcyMbv36cVMmrPY';
